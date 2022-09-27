@@ -11,11 +11,10 @@ metadata:
       title: GitHub Repo
       icon: github
 spec:
-  type: openapi
+  type: api
   lifecycle: experimental
   owner: teamacic
   definition: |
-    openapi: 1.0
     servers:
       - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
     info:
