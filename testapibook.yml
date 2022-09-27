@@ -11,13 +11,12 @@ metadata:
       title: GitHub Repo
       icon: github
 spec:
-  type: openapi
   lifecycle: experimental
   owner: teamacic
   definition: |
     openapi: 1.0
     servers:
-      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local/v1
+      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
     info:
       description: |-
         This is a sample Test API
@@ -61,7 +60,7 @@ spec:
                     $ref: '#/books'
                 application/json:
                   schema:
-                    $ref: '#/books'
+                    $ref: '#addBook'
             '405':
               description: Invalid input
           security:
