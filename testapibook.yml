@@ -11,12 +11,13 @@ metadata:
       title: GitHub Repo
       icon: github
 spec:
-  type: api
+  type: openapi
   lifecycle: experimental
   owner: teamacic
   definition: |
+    openapi: 1.0
     servers:
-      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
+      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local/v1
     info:
       description: |-
         This is a sample Test API
@@ -80,7 +81,6 @@ spec:
               application/x-www-form-urlencoded:
                 schema:
                   $ref: '#/books'
-
     components:
       securitySchemes:
         api_key:
