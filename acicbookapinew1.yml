@@ -1,0 +1,129 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: acicbookapinew1
+  description: The book API
+  tags:
+    - store
+    - rest
+  links:
+    - url: https://github.com/acirom/acic-api-book
+      title: GitHub Repo
+      icon: github
+spec:
+  lifecycle: experimental
+  owner: teamacic
+  definition: |
+    openapi: 3.0.0
+    servers:
+      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
+    info:
+      description: |-
+        This is a sample Test API
+      version: 1.0.0
+      title: Web API Acic
+    tags:
+      - name: book
+        description: Test book CRUD
+    paths:
+      /books:
+        get:
+          tags:
+            - books
+          summary: Get all books
+          description: books description
+          operationId: lookForBooks
+          responses:
+            '200':
+              description: successful operation
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    additionalProperties:
+                      type: integer
+                      format: int32
+          security:
+            - api_key: []
+        post:
+          tags:
+            - books
+          summary: Add a new book
+          description: Add a new book to the catalog
+          operationId: addBook
+          responses:
+            '200':
+              description: Successful operation
+              content:
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/addBook'
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/addBook'
+            '405':
+              description: Invalid input
+          security:
+            - books_auth:
+                - 'write:books'
+                - 'read:books'
+          requestBody:
+            description: Create a new book in the catalog
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/addBook'
+              application/xml:
+                schema:
+                  $ref: '#/components/schemas/addBook'
+              application/x-www-form-urlencoded:
+                schema:
+                  $ref: '#/components/schemas/addBook'
+    components:
+      schemas:
+        addBook:
+          title: Book add
+          description: add book.
+          type: object
+          properties:
+            id:
+              title: ID
+              description: The first ID pet owner
+              type: string
+              minLength: 1
+              maxLength: 30
+              pattern: '^[a-zA-Z]*$'
+              example: BID334
+            title:
+              title: BookTitle
+              description: The title of book.
+              type: string
+              minLength: 1
+              maxLength: 30
+              pattern: '^[a-zA-Z]*$'
+              example: Epic Reads Book Club Sampler
+            author:
+              title: author
+              description: The author of book.
+              type: string
+              minLength: 1
+              maxLength: 255
+              example: 'Megan McCafferty'
+            publisher:
+              title: publisher
+              description: The publisher of book.
+              type: string
+              minLength: 1
+              maxLength: 80
+              example: Goodreads Author
+          required:
+            - id
+            - title
+            - author
+            - publisher
+      securitySchemes:
+        api_key:
+          type: apiKey
+          name: api_key
+          in: header
