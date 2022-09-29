@@ -30,7 +30,7 @@ spec:
       /books:
         get:
           tags:
-            - books
+            - booksGET
           summary: Get all books
           description: books description
           operationId: lookForBooks
@@ -50,7 +50,7 @@ spec:
       /book:
         post:
           tags:
-            - books
+            - bookPOST
           summary: Add a new book
           description: Add a new book to the catalog
           operationId: addBook
