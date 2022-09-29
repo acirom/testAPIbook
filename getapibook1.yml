@@ -14,7 +14,7 @@ spec:
   lifecycle: experimental
   owner: teamacic
   definition: |
-    openapi: 1.0
+    openapi: 3.0.0
     servers:
       - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
     info:
