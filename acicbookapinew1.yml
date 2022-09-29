@@ -11,6 +11,7 @@ metadata:
       title: GitHub Repo
       icon: github
 spec:
+  type: openapi
   lifecycle: experimental
   owner: teamacic
   definition: |
