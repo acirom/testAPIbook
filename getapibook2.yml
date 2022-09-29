@@ -1,0 +1,88 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: acicbookapi1
+  description: The book API
+  tags:
+    - store
+    - rest
+  links:
+    - url: https://github.com/acirom/acic-api-book
+      title: GitHub Repo
+      icon: github
+spec:
+  lifecycle: experimental
+  owner: teamacic
+  definition: |
+    openapi: 3.0.0
+    servers:
+      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
+    info:
+      description: |-
+        This is a sample Test API
+      version: 1.0.0
+      title: Web API Acic
+    tags:
+      - name: book
+        description: Test book CRUD
+    paths:
+      /books:
+        get:
+          tags:
+            - books
+          summary: Get all books
+          description: books description
+          operationId: lookForBooks
+          responses:
+            '200':
+              description: successful operation
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    additionalProperties:
+                      type: integer
+                      format: int32
+          security:
+            - api_key: []
+        post:
+          tags:
+            - books
+          summary: Add a new book
+          description: Add a new book to the catalog
+          operationId: addBook
+          responses:
+            '200':
+              description: Successful operation
+              content:
+                application/xml:
+                  schema:
+                    $ref: '#/books'
+                application/json:
+                  schema:
+                    $ref: '#addBook'
+            '405':
+              description: Invalid input
+          security:
+            - books_auth:
+                - 'write:books'
+                - 'read:books'
+          requestBody:
+            description: Create a new book in the catalog
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/books'
+              application/xml:
+                schema:
+                  $ref: '#/books'
+              application/x-www-form-urlencoded:
+                schema:
+                  $ref: '#/books'
+    components:
+      securitySchemes:
+        api_key:
+          type: apiKey
+          name: api_key
+          in: header
