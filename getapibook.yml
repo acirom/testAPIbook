@@ -1,0 +1,88 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: acicbookapi
+  description: The book API
+  tags:
+    - store
+    - rest
+  links:
+    - url: https://github.com/acirom/acic-api-book
+      title: GitHub Repo
+      icon: github
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: teamacic
+  definition: |
+    openapi: 1.0
+    servers:
+      - url: http://acic-api-book.cnr.tap.tanzu.vxlab.local
+    info:
+      description: |-
+        This is a sample Test API - Test book CRUD
+      version: 1.0.0
+      title: Web API Acic
+    tags:
+      - name: book
+    paths:
+      /books:
+        get:
+          tags:
+            - books
+          summary: Get all books
+          description: books description
+          operationId: lookForBooks
+          responses:
+            '200':
+              description: successful operation
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/booksFields'
+          security:
+            - api_key: []
+    components:
+      schemas:
+        booksFields:
+          title: Book fields
+          description: Editable fields of a book.
+          type: object
+          properties:
+            id:
+              title: ID
+              description: The first ID pet owner
+              type: string
+              minLength: 1
+              maxLength: 30
+              pattern: '^[a-zA-Z]*$'
+              example: BID334
+            title:
+              title: BookTitle
+              description: The title of book.
+              type: string
+              minLength: 1
+              maxLength: 30
+              pattern: '^[a-zA-Z]*$'
+              example: Epic Reads Book Club Sampler
+            author:
+              title: author
+              description: The author of book.
+              type: string
+              minLength: 1
+              maxLength: 255
+              example: 'Megan McCafferty'
+            publisher:
+              title: publisher
+              description: The publisher of book.
+              type: string
+              minLength: 1
+              maxLength: 80
+              example: Goodreads Author
+      securitySchemes:
+        api_key:
+          type: apiKey
+          name: api_key
+          in: header
