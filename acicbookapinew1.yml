@@ -46,7 +46,6 @@ spec:
                       format: int32
           security:
             - api_key: []
-    paths:
       /book:
         post:
           tags:
